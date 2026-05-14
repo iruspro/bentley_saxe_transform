@@ -1,5 +1,5 @@
-(** Bentley-Saxe transformation: turns a static decomposable search
-    structure into a dynamic one supporting insertions. *)
+(** Bentley-Saxe transformation: turns a static decomposable search structure
+    into a dynamic one supporting insertions. *)
 
 module type Static = sig
   type elt
