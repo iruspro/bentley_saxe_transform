@@ -17,7 +17,18 @@ module Make (S : Static) = struct
   type answer = S.answer
 
   let empty : t = []
-  let insert (t : t) (x : elt) : t = failwith "TODO"
+
+  let rec insert_at levels carry =
+    match levels with
+    | [] -> [ Some carry ]
+    | None :: rest -> Some carry :: rest
+    | Some existing :: rest ->
+        let merged =
+          S.of_seq (Seq.append (S.to_iter existing) (S.to_iter carry))
+        in
+        None :: insert_at rest merged
+
+  let insert t x = insert_at t (S.of_seq (Seq.return x))
 
   let search t q =
     List.fold_left
