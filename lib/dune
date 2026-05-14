@@ -1,2 +1,3 @@
 (library
- (name bentley_sax_transform))
+ (name bentley_saxe_transform)
+ (public_name bentley_saxe_transform))
