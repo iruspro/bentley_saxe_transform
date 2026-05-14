@@ -1,0 +1,4 @@
+(executable
+ (public_name bentley_sax_transform)
+ (name main)
+ (libraries bentley_sax_transform))
