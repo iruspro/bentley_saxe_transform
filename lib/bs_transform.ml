@@ -18,5 +18,13 @@ module Make (S : Static) = struct
 
   let empty : t = []
   let insert (t : t) (x : elt) : t = failwith "TODO"
-  let search (t : t) (q : query) : answer option = failwith "TODO"
+
+  let search (t : t) (q : query) : answer option =
+    List.fold_left
+      (fun acc level ->
+        match (acc, level) with
+        | _, None -> acc
+        | None, Some s -> Some (S.search s q)
+        | Some a, Some s -> Some (S.combine a (S.search s q)))
+      None t
 end
