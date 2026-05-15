@@ -20,15 +20,13 @@ module Make (S : Static) = struct
 
   let rec insert_at levels carry =
     match levels with
-    | [] -> [ Some carry ]
-    | None :: rest -> Some carry :: rest
+    | [] -> [ Some (S.of_seq carry) ]
+    | None :: rest -> Some (S.of_seq carry) :: rest
     | Some existing :: rest ->
-        let merged =
-          S.of_seq (Seq.append (S.to_iter existing) (S.to_iter carry))
-        in
+        let merged = Seq.append (S.to_iter existing) carry in
         None :: insert_at rest merged
 
-  let insert t x = insert_at t (S.of_seq (Seq.return x))
+  let insert t x = insert_at t (Seq.return x)
 
   let search t q =
     List.fold_left
